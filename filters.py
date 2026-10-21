@@ -36,7 +36,6 @@ def gaussian_kernel(sigma):
 
 
 def gradient(img, kx):
-    
     gx = filter2d(img, kx)
     gy = filter2d(img, kx.T)
 
