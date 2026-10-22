@@ -1,7 +1,7 @@
 
 
 import numpy as np
-from filters import gradient
+from filters import gradient, blur
 from first_order.sobel import SOBEL
 
 
@@ -25,3 +25,37 @@ def non_max_supression(mag, ang):
         sel = (bins == b) & is_max
         out[sel] = mag[sel]
     return out
+
+def dilate(m):
+
+    H = m.shape
+    W = m.shape
+
+    p = np.zeros_like(m)
+
+    for i in range(3):
+        for j in range(3):
+            out |= p[i : i + H, j : j + W]
+    return out
+
+def hysteresis(nms, low, high):
+
+    strong = nms >= high
+    weak = nms >= low
+    edges = strong.copy()
+
+    while True:
+        grown = dilate(edges) & weak
+        if (grown == edges).all():
+            return edges
+        edges = grown
+
+def canny(img, sigma = 1.4, low_frac = 0, high_frac = 0.25):
+
+    _, _, mag, ang = gradient(blur(img, sigma), SOBEL)
+    nms = non_max_supression(mag, ang)
+    m = nms.max()
+
+    return hysteresis(nms, low_frac * m, high_frac * m)
+
+
