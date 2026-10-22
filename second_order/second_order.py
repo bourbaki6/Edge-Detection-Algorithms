@@ -1,6 +1,6 @@
 
 import numpy as np
-from filters import filter2d
+from filters import filter2d, blur
 
 LAPLACIAN = np.array([
     [0, 1, 0],
@@ -32,6 +32,7 @@ def laplacian(img, thresh_frac = 0.1):
 
     return zero_crossing(lap, thresh_frac * np.abs(lap).max())
 
+#--- AKA Mrr-Hildreth ---#
 def log(img, sigma = 2.0, thresh_frac = 0.1):
 
     lap = filter2d(blur(img, sigma), LAPLACIAN)
