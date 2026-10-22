@@ -46,6 +46,8 @@ def gradient(img, kx):
     return gx, gy, mag, ang
 
 
-def thresh(mag, frac):
+def threshold(mag, frac):
     return mag >= frac * mag.max()
 
+def blur(img, sigma):
+    return filter2d(img, gaussian_kernel(sigma))

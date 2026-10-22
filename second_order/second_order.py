@@ -4,7 +4,7 @@ from filters import filter2d
 
 LAPLACIAN = np.array([
     [0, 1, 0],
-    [1, -3, 1],
+    [1, -4, 1],
     [0, 1, 0]
 ], float)
 
