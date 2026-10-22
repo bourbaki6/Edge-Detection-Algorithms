@@ -34,6 +34,9 @@ def gaussian_kernel(sigma):
 
         return np.outer(g, g)
 
+def blur(img, sigma):
+    return filter2d(img, gaussian_kernel(sigma))
+    
 
 def gradient(img, kx):
     gx = filter2d(img, kx)

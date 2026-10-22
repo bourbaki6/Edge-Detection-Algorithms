@@ -29,8 +29,13 @@ def zero_crossing(x, thresh = 0.0):
 def laplacian(img, thresh_frac = 0.1):
 
     lap = filter2d(img, LAPLACIAN)
-    return zero_crossings(lap, thresh_frac * np.abs(lap).max())
 
+    return zero_crossing(lap, thresh_frac * np.abs(lap).max())
 
+def log(img, sigma = 2.0, thresh_frac = 0.1):
+
+    lap = filter2d(blur(img, sigma), LAPLACIAN)
+
+    return zero_crossing(lap, thresh_frac * np.abs(lap).max)
 
 
